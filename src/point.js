@@ -56,6 +56,10 @@ class Point {
     this.stone = stone;
   }
 
+  captureStone() {
+    this.stone = null;
+  }
+
   addToTerritory(territoryId) {
     this.territoryId = territoryId;
   }

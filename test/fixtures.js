@@ -5,6 +5,328 @@ import PointSet from '../src/point_set'
 import Point from '../src/point'
 
 const fixtureDefinitions = {
+  gameState: {
+    klass: GameState,
+    args: {
+      current_player_number: 1,
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: null },
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: { id: 2, player_number: 2, chain_id: 2 } },
+        { id: 8, x: 1, y: 3, stone: { id: 1, player_number: 1, chain_id: 1 } }
+      ],
+      prisoner_counts: [
+        { player_number: 1, count: 0 },
+        { player_number: 2, count: 0 }
+      ]
+    }
+  },
+  pointSet: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: null },
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: null },
+        { id: 8, x: 2, y: 2, stone: { id: 2, player_number: 2, chain_id: 2 } }
+      ]
+    }
+  },
+  pointSetWithChain: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 5, x: 2, y: 1, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: { id: 3, player_number: 2, chain_id: 2 } },
+        { id: 8, x: 2, y: 2, stone: { id: 4, player_number: 2, chain_id: 2 } }
+      ]
+    }
+  },
+  pointSetWithUChain: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 8, x: 2, y: 2, stone: { id: 1, player_number: 1, chain_id: 1 } }
+      ]
+    }
+  },
+  pointSetWithTerritory: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: null, territory_id: 1 },
+        { id: 1, x: 1, y: 0, stone: null, territory_id: 1 },
+        { id: 2, x: 2, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 3, y: 0, stone: null, territory_id: 2 },
+        { id: 4, x: 4, y: 0, stone: null, territory_id: 2 },
+
+        { id: 5, x: 0, y: 1, stone: null, territory_id: 1 },
+        { id: 6, x: 1, y: 1, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 7, x: 2, y: 1, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 8, x: 3, y: 1, stone: null, territory_id: 2 },
+        { id: 9, x: 4, y: 1, stone: null, territory_id: 2 },
+
+        { id: 10, x: 0, y: 2, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 11, x: 1, y: 2, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 12, x: 2, y: 2, stone: null, territory_id: 3 },
+        { id: 13, x: 3, y: 2, stone: { id: 6, player_number: 2, chain_id: 2 } },
+        { id: 14, x: 4, y: 2, stone: { id: 7, player_number: 2, chain_id: 2 } },
+
+        { id: 15, x: 0, y: 3, stone: null, territory_id: 4 },
+        { id: 16, x: 1, y: 3, stone: null, territory_id: 4 },
+        { id: 17, x: 2, y: 3, stone: { id: 8, player_number: 2, chain_id: 2 } },
+        { id: 18, x: 3, y: 3, stone: { id: 9, player_number: 2, chain_id: 2 } },
+        { id: 19, x: 4, y: 3, stone: null, territory_id: 5 },
+
+        { id: 20, x: 0, y: 4, stone: null, territory_id: 4 },
+        { id: 21, x: 1, y: 4, stone: null, territory_id: 4 },
+        { id: 22, x: 2, y: 4, stone: { id: 10, player_number: 2, chain_id: 2 } },
+        { id: 23, x: 3, y: 4, stone: null, territory_id: 5 },
+        { id: 24, x: 4, y: 4, stone: null, territory_id: 5 }
+      ]
+    }
+  },
+  pointSetWithLiberties: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 0, y: 2, stone: { id: 6, player_number: 1, chain_id: 1 } },
+        { id: 7, x: 1, y: 2, stone: { id: 7, player_number: 1, chain_id: 2 } },
+        { id: 8, x: 2, y: 2, stone: { id: 8, player_number: 1, chain_id: 1 } }
+      ]
+    }
+  },
+  pointSetWithoutLiberties: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 0, y: 1, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 0, y: 2, stone: { id: 6, player_number: 1, chain_id: 1 } },
+        { id: 7, x: 1, y: 2, stone: { id: 7, player_number: 1, chain_id: 2 } },
+        { id: 8, x: 2, y: 2, stone: { id: 8, player_number: 1, chain_id: 1 } }
+      ]
+    }
+  },
+  pointSetWithOneLiberty: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 0, y: 1, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 0, y: 2, stone: { id: 6, player_number: 1, chain_id: 1 } },
+        { id: 7, x: 1, y: 2, stone: { id: 7, player_number: 1, chain_id: 2 } },
+        { id: 8, x: 2, y: 2, stone: { id: 8, player_number: 1, chain_id: 1 } }
+      ]
+    }
+  },
+  pointSetWithTwoLiberties: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 2, chain_id: 1 } },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 0, y: 1, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 0, y: 2, stone: { id: 6, player_number: 1, chain_id: 1 } },
+        { id: 7, x: 1, y: 2, stone: { id: 7, player_number: 1, chain_id: 2 } },
+        { id: 8, x: 2, y: 2, stone: { id: 8, player_number: 1, chain_id: 1 } }
+
+      ]
+    }
+  },
+  pointSetDeprivesOpponentsLiberties: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 3, y: 0, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 4, x: 4, y: 0, stone: { id: 5, player_number: 1, chain_id: 1 } },
+
+        { id: 5, x: 0, y: 1, stone: { id: 6, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 1, y: 1, stone: { id: 7, player_number: 2, chain_id: 2 } },
+        { id: 7, x: 2, y: 1, stone: { id: 8, player_number: 2, chain_id: 2 } },
+        { id: 8, x: 3, y: 1, stone: { id: 9, player_number: 2, chain_id: 2 } },
+        { id: 9, x: 4, y: 1, stone: { id: 10, player_number: 1, chain_id: 1 } },
+
+        { id: 10, x: 0, y: 2, stone: { id: 11, player_number: 1, chain_id: 1 } },
+        { id: 11, x: 1, y: 2, stone: { id: 12, player_number: 2, chain_id: 2 } },
+        { id: 12, x: 2, y: 2, stone: null },
+        { id: 13, x: 3, y: 2, stone: { id: 13, player_number: 2, chain_id: 2 } },
+        { id: 14, x: 4, y: 2, stone: { id: 14, player_number: 1, chain_id: 1 } },
+
+        { id: 15, x: 0, y: 3, stone: { id: 15, player_number: 1, chain_id: 1 } },
+        { id: 16, x: 1, y: 3, stone: { id: 16, player_number: 2, chain_id: 2 } },
+        { id: 17, x: 2, y: 3, stone: { id: 17, player_number: 2, chain_id: 2 } },
+        { id: 18, x: 3, y: 3, stone: { id: 18, player_number: 2, chain_id: 2 } },
+        { id: 19, x: 4, y: 3, stone: { id: 19, player_number: 1, chain_id: 1 } },
+
+        { id: 20, x: 0, y: 4, stone: { id: 20, player_number: 1, chain_id: 1 } },
+        { id: 21, x: 1, y: 4, stone: { id: 21, player_number: 1, chain_id: 1 } },
+        { id: 22, x: 2, y: 4, stone: { id: 22, player_number: 1, chain_id: 1 } },
+        { id: 23, x: 3, y: 4, stone: { id: 23, player_number: 1, chain_id: 1 } },
+        { id: 24, x: 4, y: 4, stone: { id: 24, player_number: 1, chain_id: 1 } }
+      ] 
+    }
+  },
+  pointSetWithAdjacentChains: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 5, x: 2, y: 1, stone: null },
+        { id: 6, x: 0, y: 2, stone: { id: 6, player_number: 1, chain_id: 2 } },
+        { id: 7, x: 1, y: 2, stone: { id: 7, player_number: 1, chain_id: 2 } },
+        { id: 8, x: 2, y: 2, stone: { id: 8, player_number: 1, chain_id: 2 } }
+      ]
+    }
+  },
+  pointSetWithNoAdjacentChains: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 5, x: 2, y: 1, stone: null },
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: null },
+        { id: 8, x: 2, y: 2, stone: { id: 8, player_number: 1, chain_id: 2 } }
+      ]
+    }
+  },
+  pointSetWithNoLiberties: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 2, chain_id: 2 } },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 0, y: 1, stone: { id: 3, player_number: 2, chain_id: 2 } },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: null },
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: null },
+        { id: 8, x: 2, y: 2, stone: null }
+      ]
+    }
+  },
+  pointSetEmpty: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: null },
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: null },
+        { id: 8, x: 2, y: 2, stone: null }
+      ]
+    }
+  },
+  pointSetToCapture: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 2, chain_id: 2 } },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: { id: 3, player_number: 2, chain_id: 2 } },
+        { id: 5, x: 2, y: 1, stone: null },
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: null },
+        { id: 8, x: 2, y: 2, stone: null }
+      ]
+    }
+  },
+  pointSetEndGame: {
+    klass: PointSet,
+    args: {
+      points: [
+        { id: 0, x: 0, y: 0, stone: null, territory_id: 7 },
+        { id: 1, x: 1, y: 0, stone: null, territory_id: 7 },
+        { id: 2, x: 2, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 }, territory_id: 7 },
+        { id: 3, x: 3, y: 0, stone: null, territory_id: 7 },
+        { id: 4, x: 4, y: 0, stone: null, territory_id: 7 },
+
+        { id: 5, x: 0, y: 1, stone: null, territory_id: 7 },
+        { id: 6, x: 1, y: 1, stone: { id: 2, player_number: 1, chain_id: 1 }, territory_id: 7 },
+        { id: 7, x: 2, y: 1, stone: { id: 3, player_number: 1, chain_id: 1 }, territory_id: 7 },
+        { id: 8, x: 3, y: 1, stone: null, territory_id: 7 },
+        { id: 9, x: 4, y: 1, stone: null, territory_id: 7 },
+
+        { id: 10, x: 0, y: 2, stone: { id: 4, player_number: 1, chain_id: 1 }, territory_id: 7 },
+        { id: 11, x: 1, y: 2, stone: { id: 5, player_number: 1, chain_id: 1 }, territory_id: 7 },
+        { id: 12, x: 2, y: 2, stone: null, territory_id: 7 },
+        { id: 13, x: 3, y: 2, stone: { id: 6, player_number: 2, chain_id: 2 }, territory_id: 7 },
+        { id: 14, x: 4, y: 2, stone: { id: 7, player_number: 2, chain_id: 2 }, territory_id: 7 },
+
+        { id: 15, x: 0, y: 3, stone: null, territory_id: 7 },
+        { id: 16, x: 1, y: 3, stone: null, territory_id: 7 },
+        { id: 17, x: 2, y: 3, stone: { id: 8, player_number: 2, chain_id: 2 }, territory_id: 7 },
+        { id: 18, x: 3, y: 3, stone: { id: 9, player_number: 2, chain_id: 2 }, territory_id: 7 },
+        { id: 19, x: 4, y: 3, stone: null, territory_id: 7 },
+
+        { id: 20, x: 0, y: 4, stone: null, territory_id: 7 },
+        { id: 21, x: 1, y: 4, stone: null, territory_id: 7 },
+        { id: 22, x: 2, y: 4, stone: { id: 10, player_number: 2, chain_id: 2 }, territory_id: 7 },
+        { id: 23, x: 3, y: 4, stone: null, territory_id: 7 },
+        { id: 24, x: 4, y: 4, stone: null, territory_id: 7 }
+      ]
+    }
+  }
 };
 
 const deepMerge = function(aObject, bObject) {
@@ -54,6 +376,9 @@ const deepMerge = function(aObject, bObject) {
 
 const fixtures = function(name, customArgs) {
   let definition = fixtureDefinitions[name];
+  if (!exists(definition)) {
+    throw new Error(`Undefined fixture: ${name}`);
+  }
   let args = {};
   if (exists(customArgs)) {
     args = deepMerge(definition.args, customArgs);

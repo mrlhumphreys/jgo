@@ -167,6 +167,14 @@ describe('Point', () => {
     });
   });
 
+  describe('captureStone', () => {
+    it('must set stone to null', () => {
+      let point = new Point({id: 1, x: 2, y: 3, stone: { id: 1, player_number: 1, chain_id: 3 }});
+      point.captureStone();
+      expect(point.stone).toBe(null);
+    });
+  });
+
   describe('addToTerritory', () => {
     it('must update the territory id', () => {
       let point = new Point({id: 1, x: 2, y: 3, stone: null, territory_id: null});

@@ -17,6 +17,10 @@ class GameState {
       previous_state: this.previousState
     };
   }
+
+  move() {
+
+  }
 }
 
 export default GameState;
