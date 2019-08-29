@@ -11,10 +11,10 @@ describe('Match', () => {
           points: [
             { id: 1, x: 2, y: 3, stone: { id: 1, player_number: 2 } }
           ],
-          prisoner_counts: {
-            1: 0,
-            2: 0
-          },
+          player_stats: [ 
+            { player_number: 1, passed: false, prisoner_count: 0 },
+            { player_number: 2, passed: false, prisoner_count: 0 }
+          ],
           previous_state: '1'
         },
         players: [
@@ -40,10 +40,10 @@ describe('Match', () => {
           points: [
             { id: 1, x: 2, y: 3, stone: { id: 1, player_number: 2 } }
           ],
-          prisoner_counts: {
-            1: 0,
-            2: 0
-          },
+          player_stats: [ 
+            { player_number: 1, passed: false, prisoner_count: 0 },
+            { player_number: 2, passed: false, prisoner_count: 0 }
+          ],
           previous_state: '1'
         },
         players: [
@@ -59,10 +59,10 @@ describe('Match', () => {
           points: [
             { id: 1, x: 2, y: 3, territory_id: null, stone: { id: 1, player_number: 2, chain_id: null } }
           ],
-          prisoner_counts: {
-            1: 0,
-            2: 0
-          },
+          player_stats: [ 
+            { player_number: 1, passed: false, prisoner_count: 0 },
+            { player_number: 2, passed: false, prisoner_count: 0 }
+          ],
           previous_state: '1'
         },
         players: [

@@ -20,9 +20,384 @@ const fixtureDefinitions = {
         { id: 7, x: 1, y: 2, stone: { id: 2, player_number: 2, chain_id: 2 } },
         { id: 8, x: 1, y: 3, stone: { id: 1, player_number: 1, chain_id: 1 } }
       ],
-      prisoner_counts: [
-        { player_number: 1, count: 0 },
-        { player_number: 2, count: 0 }
+      player_stats: [
+        { player_number: 1, passed: false, prisoner_count: 0 },
+        { player_number: 2, passed: false, prisoner_count: 0 }
+      ]
+    }
+  },
+  gameStatePassed: { 
+    klass: GameState,
+    args: {
+      current_player_number: 1,
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: null },
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: { id: 2, player_number: 2, chain_id: 2 } },
+        { id: 8, x: 1, y: 3, stone: { id: 1, player_number: 1, chain_id: 1 } }
+      ],
+      player_stats: [
+        { player_number: 1, passed: true, prisoner_count: 0 },
+        { player_number: 2, passed: false, prisoner_count: 0 }
+      ]
+    }
+  },
+  gameStateSurroundedByOpponent: {
+    klass: GameState,
+    args: {
+      current_player_number: 2,
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 3, y: 0, stone: null },
+        { id: 4, x: 4, y: 0, stone: null },
+
+        { id: 5, x: 0, y: 1, stone: null },
+        { id: 6, x: 1, y: 1, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 7, x: 2, y: 1, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 8, x: 3, y: 1, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 9, x: 4, y: 1, stone: null },
+
+        { id: 10, x: 0, y: 2, stone: null },
+        { id: 11, x: 1, y: 2, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 12, x: 2, y: 2, stone: null },
+        { id: 13, x: 3, y: 2, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 14, x: 4, y: 2, stone: null },
+
+        { id: 15, x: 0, y: 3, stone: null },
+        { id: 16, x: 1, y: 3, stone: { id: 6, player_number: 1, chain_id: 1 } },
+        { id: 17, x: 2, y: 3, stone: { id: 7, player_number: 1, chain_id: 1 } },
+        { id: 18, x: 3, y: 3, stone: { id: 8, player_number: 1, chain_id: 1 } },
+        { id: 19, x: 4, y: 3, stone: null },
+
+        { id: 20, x: 0, y: 4, stone: null },
+        { id: 21, x: 1, y: 4, stone: null },
+        { id: 22, x: 2, y: 4, stone: null },
+        { id: 23, x: 3, y: 4, stone: null },
+        { id: 24, x: 4, y: 4, stone: null }
+      ],
+      player_stats: [
+        { player_number: 1, passed: false, prisoner_count: 0 },
+        { player_number: 2, passed: false, prisoner_count: 0 }
+      ]
+    }
+  },
+  gameStateDeprivesLiberty: {
+    klass: GameState,
+    args: {
+      current_player_number: 2,
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 3, y: 0, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 4, x: 4, y: 0, stone: { id: 5, player_number: 1, chain_id: 1 } },
+
+        { id: 5, x: 0, y: 1, stone: { id: 6, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 1, y: 1, stone: { id: 7, player_number: 2, chain_id: 2 } },
+        { id: 7, x: 2, y: 1, stone: { id: 8, player_number: 2, chain_id: 2 } },
+        { id: 8, x: 3, y: 1, stone: { id: 9, player_number: 2, chain_id: 2 } },
+        { id: 9, x: 4, y: 1, stone: { id: 10, player_number: 1, chain_id: 1 } },
+
+        { id: 10, x: 0, y: 2, stone: { id: 11, player_number: 1, chain_id: 1 } },
+        { id: 11, x: 1, y: 2, stone: { id: 12, player_number: 2, chain_id: 2 } },
+        { id: 12, x: 2, y: 2, stone: null },
+        { id: 13, x: 3, y: 2, stone: { id: 13, player_number: 2, chain_id: 2 } },
+        { id: 14, x: 4, y: 2, stone: { id: 14, player_number: 1, chain_id: 1 } },
+
+        { id: 15, x: 0, y: 3, stone: { id: 15, player_number: 1, chain_id: 1 } },
+        { id: 16, x: 1, y: 3, stone: { id: 16, player_number: 2, chain_id: 2 } },
+        { id: 17, x: 2, y: 3, stone: { id: 17, player_number: 2, chain_id: 2 } },
+        { id: 18, x: 3, y: 3, stone: { id: 18, player_number: 2, chain_id: 2 } },
+        { id: 19, x: 4, y: 3, stone: { id: 19, player_number: 1, chain_id: 1 } },
+
+        { id: 20, x: 0, y: 4, stone: { id: 20, player_number: 1, chain_id: 1 } },
+        { id: 21, x: 1, y: 4, stone: { id: 21, player_number: 1, chain_id: 1 } },
+        { id: 22, x: 2, y: 4, stone: { id: 22, player_number: 1, chain_id: 1 } },
+        { id: 23, x: 3, y: 4, stone: { id: 23, player_number: 2, chain_id: 1 } },
+        { id: 24, x: 4, y: 4, stone: { id: 24, player_number: 1, chain_id: 1 } }
+      ],
+      player_stats: [
+        { player_number: 1, passed: false, prisoner_count: 0 },
+        { player_number: 2, passed: false, prisoner_count: 0 }
+      ]
+    }
+  },
+  gameStateSurroundedWithLiberty: {
+    klass: GameState,
+    args: {
+      current_player_number: 2,
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 3, y: 0, stone: null },
+        { id: 4, x: 4, y: 0, stone: { id: 5, player_number: 1, chain_id: 1 } },
+
+        { id: 5, x: 0, y: 1, stone: { id: 6, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 1, y: 1, stone: { id: 7, player_number: 2, chain_id: 2 } },
+        { id: 7, x: 2, y: 1, stone: { id: 8, player_number: 2, chain_id: 2 } },
+        { id: 8, x: 3, y: 1, stone: { id: 9, player_number: 2, chain_id: 2 } },
+        { id: 9, x: 4, y: 1, stone: { id: 10, player_number: 1, chain_id: 1 } },
+
+        { id: 10, x: 0, y: 2, stone: { id: 11, player_number: 1, chain_id: 1 } },
+        { id: 11, x: 1, y: 2, stone: { id: 12, player_number: 2, chain_id: 2 } },
+        { id: 12, x: 2, y: 2, stone: null },
+        { id: 13, x: 3, y: 2, stone: { id: 13, player_number: 2, chain_id: 2 } },
+        { id: 14, x: 4, y: 2, stone: { id: 14, player_number: 1, chain_id: 1 } },
+
+        { id: 15, x: 0, y: 3, stone: { id: 15, player_number: 1, chain_id: 1 } },
+        { id: 16, x: 1, y: 3, stone: { id: 16, player_number: 2, chain_id: 2 } },
+        { id: 17, x: 2, y: 3, stone: { id: 17, player_number: 2, chain_id: 2 } },
+        { id: 18, x: 3, y: 3, stone: { id: 18, player_number: 2, chain_id: 2 } },
+        { id: 19, x: 4, y: 3, stone: { id: 19, player_number: 1, chain_id: 1 } },
+
+        { id: 20, x: 0, y: 4, stone: { id: 20, player_number: 1, chain_id: 1 } },
+        { id: 21, x: 1, y: 4, stone: { id: 21, player_number: 1, chain_id: 1 } },
+        { id: 22, x: 2, y: 4, stone: { id: 22, player_number: 1, chain_id: 1 } },
+        { id: 23, x: 3, y: 4, stone: { id: 23, player_number: 1, chain_id: 1 } },
+        { id: 24, x: 4, y: 4, stone: { id: 24, player_number: 1, chain_id: 1 } }
+      ],
+      player_stats: [
+        { player_number: 1, prisoner_count: 0, passed: false },
+        { player_number: 2, prisoner_count: 0, passed: false }
+      ]
+    }
+  },
+  gameStateSurroundedDeprivesLiberties: {
+    klass: GameState,
+    args: {
+      current_player_number: 1,
+      points: [
+        { id: 0, x: 0, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 1, x: 1, y: 0, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 2, x: 2, y: 0, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 3, y: 0, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 4, x: 4, y: 0, stone: { id: 5, player_number: 1, chain_id: 1 } },
+
+        { id: 5, x: 0, y: 1, stone: { id: 6, player_number: 1, chain_id: 1 } },
+        { id: 6, x: 1, y: 1, stone: { id: 7, player_number: 2, chain_id: 2 } },
+        { id: 7, x: 2, y: 1, stone: { id: 8, player_number: 2, chain_id: 2 } },
+        { id: 8, x: 3, y: 1, stone: { id: 9, player_number: 2, chain_id: 2 } },
+        { id: 9, x: 4, y: 1, stone: { id: 10, player_number: 1, chain_id: 1 } },
+
+        { id: 10, x: 0, y: 2, stone: { id: 11, player_number: 1, chain_id: 1 } },
+        { id: 11, x: 1, y: 2, stone: { id: 12, player_number: 2, chain_id: 2 } },
+        { id: 12, x: 2, y: 2, stone: null },
+        { id: 13, x: 3, y: 2, stone: { id: 13, player_number: 2, chain_id: 2 } },
+        { id: 14, x: 4, y: 2, stone: { id: 14, player_number: 1, chain_id: 1 } },
+
+        { id: 15, x: 0, y: 3, stone: { id: 15, player_number: 1, chain_id: 1 } },
+        { id: 16, x: 1, y: 3, stone: { id: 16, player_number: 2, chain_id: 2 } },
+        { id: 17, x: 2, y: 3, stone: { id: 17, player_number: 2, chain_id: 2 } },
+        { id: 18, x: 3, y: 3, stone: { id: 18, player_number: 2, chain_id: 2 } },
+        { id: 19, x: 4, y: 3, stone: { id: 19, player_number: 1, chain_id: 1 } },
+
+        { id: 20, x: 0, y: 4, stone: { id: 20, player_number: 1, chain_id: 1 } },
+        { id: 21, x: 1, y: 4, stone: { id: 21, player_number: 1, chain_id: 1 } },
+        { id: 22, x: 2, y: 4, stone: { id: 22, player_number: 1, chain_id: 1 } },
+        { id: 23, x: 3, y: 4, stone: { id: 23, player_number: 1, chain_id: 1 } },
+        { id: 24, x: 4, y: 4, stone: { id: 24, player_number: 1, chain_id: 1 } }
+      ],
+      player_stats: [ 
+        { player_number: 1, prisoner_count: 0, passed: false },
+        { player_number: 2, prisoner_count: 1, passed: false }
+      ] 
+    }
+  },
+  gameStateUnjoinedChains: {
+    klass: GameState,
+    args: {
+      current_player_number: 2,
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 3, y: 0, stone: null },
+        { id: 4, x: 4, y: 0, stone: null },
+
+        { id: 5, x: 0, y: 1, stone: null },
+        { id: 6, x: 1, y: 1, stone: { id: 1, player_number: 2, chain_id: 1 } },
+        { id: 7, x: 2, y: 1, stone: { id: 2, player_number: 2, chain_id: 1 } },
+        { id: 8, x: 3, y: 1, stone: { id: 3, player_number: 2, chain_id: 1 } },
+        { id: 9, x: 4, y: 1, stone: null },
+
+        { id: 10, x: 0, y: 2, stone: null },
+        { id: 11, x: 1, y: 2, stone: null },
+        { id: 12, x: 2, y: 2, stone: null },
+        { id: 13, x: 3, y: 2, stone: null },
+        { id: 14, x: 4, y: 2, stone: null },
+
+        { id: 15, x: 0, y: 3, stone: null },
+        { id: 16, x: 1, y: 3, stone: { id: 4, player_number: 2, chain_id: 2 } },
+        { id: 17, x: 2, y: 3, stone: { id: 5, player_number: 2, chain_id: 2 } },
+        { id: 18, x: 3, y: 3, stone: { id: 6, player_number: 2, chain_id: 2 } },
+        { id: 19, x: 4, y: 3, stone: null },
+
+        { id: 20, x: 0, y: 4, stone: null },
+        { id: 21, x: 1, y: 4, stone: null },
+        { id: 22, x: 2, y: 4, stone: null },
+        { id: 23, x: 3, y: 4, stone: null },
+        { id: 24, x: 4, y: 4, stone: null }
+      ],
+      player_stats: [
+        { player_number: 1, prisoner_count: 0, passed: false },
+        { player_number: 2, prisoner_count: 0, passed: false }
+      ]
+    }
+  },
+  gameStateSurroundStone: {
+    klass: GameState,
+    args: {
+      current_player_number: 2,
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 3, y: 0, stone: null },
+        { id: 4, x: 4, y: 0, stone: null },
+
+        { id: 5, x: 0, y: 1, stone: null },
+        { id: 6, x: 1, y: 1, stone: { id: 1, player_number: 2, chain_id: 1 } },
+        { id: 7, x: 2, y: 1, stone: { id: 2, player_number: 2, chain_id: 1 } },
+        { id: 8, x: 3, y: 1, stone: { id: 3, player_number: 2, chain_id: 1 } },
+        { id: 9, x: 4, y: 1, stone: null },
+
+        { id: 10, x: 0, y: 2, stone: null },
+        { id: 11, x: 1, y: 2, stone: { id: 7, player_number: 2, chain_id: 1 } },
+        { id: 12, x: 2, y: 2, stone: { id: 8, player_number: 1, chain_id: 2 } },
+        { id: 13, x: 3, y: 2, stone: null },
+        { id: 14, x: 4, y: 2, stone: null },
+
+        { id: 15, x: 0, y: 3, stone: null },
+        { id: 16, x: 1, y: 3, stone: { id: 4, player_number: 2, chain_id: 1 } },
+        { id: 17, x: 2, y: 3, stone: { id: 5, player_number: 2, chain_id: 1 } },
+        { id: 18, x: 3, y: 3, stone: { id: 6, player_number: 2, chain_id: 1 } },
+        { id: 19, x: 4, y: 3, stone: null },
+
+        { id: 20, x: 0, y: 4, stone: null },
+        { id: 21, x: 1, y: 4, stone: null },
+        { id: 22, x: 2, y: 4, stone: null },
+        { id: 23, x: 3, y: 4, stone: null },
+        { id: 24, x: 4, y: 4, stone: null }
+      ],
+      player_stats: [
+        { player_number: 1, prisoner_count: 0, passed: false },
+        { player_number: 2, prisoner_count: 0, passed: false }
+      ]
+    }
+  },
+  gameStateWithPreviousPosition: {
+    klass: GameState,
+    args: {
+      current_player_number: 2,
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+        { id: 3, x: 3, y: 0, stone: null },
+        { id: 4, x: 4, y: 0, stone: null },
+
+        { id: 5, x: 0, y: 1, stone: null },
+        { id: 6, x: 1, y: 1, stone: null },
+        { id: 7, x: 2, y: 1, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 8, x: 3, y: 1, stone: { id: 5, player_number: 2, chain_id: 5 } },
+        { id: 9, x: 4, y: 1, stone: null },
+
+        { id: 10, x: 0, y: 2, stone: null },
+        { id: 11, x: 1, y: 2, stone: { id: 2, player_number: 1, chain_id: 2 } },
+        { id: 12, x: 2, y: 2, stone: null },
+        { id: 13, x: 3, y: 2, stone: { id: 3, player_number: 1, chain_id: 3 } },
+        { id: 14, x: 4, y: 2, stone: { id: 6, player_number: 2, chain_id: 6 } },
+
+        { id: 15, x: 0, y: 3, stone: null },
+        { id: 16, x: 1, y: 3, stone: null },
+        { id: 17, x: 2, y: 3, stone: { id: 4, player_number: 1, chain_id: 4 } },
+        { id: 18, x: 3, y: 3, stone: { id: 7, player_number: 2, chain_id: 7 } },
+        { id: 19, x: 4, y: 3, stone: null },
+
+        { id: 20, x: 0, y: 4, stone: null },
+        { id: 21, x: 1, y: 4, stone: null },
+        { id: 22, x: 2, y: 4, stone: null },
+        { id: 23, x: 3, y: 4, stone: null },
+        { id: 24, x: 4, y: 4, stone: null }
+      ],
+      player_stats: [
+        { player_number: 1, passed: false, prisoner_count: 0 },
+        { player_number: 2, passed: false, prisoner_count: 0 }
+      ],
+      previous_state: '-------12--12-2--12------'
+    }
+  },
+  gameStateOtherPlayerPassed: {
+    klass: GameState,
+    args: {
+      current_player_number: 1,
+      points: [
+        { id: 0, x: 0, y: 0, stone: null },
+        { id: 1, x: 1, y: 0, stone: null },
+        { id: 2, x: 2, y: 0, stone: null },
+
+        { id: 3, x: 0, y: 1, stone: null },
+        { id: 4, x: 1, y: 1, stone: null },
+        { id: 5, x: 2, y: 1, stone: null },
+
+        { id: 6, x: 0, y: 2, stone: null },
+        { id: 7, x: 1, y: 2, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 8, x: 2, y: 2, stone: { id: 5, player_number: 2, chain_id: 5 } },
+      ],
+      player_stats: [
+        { player_number: 1, prisoner_count: 0, passed: false },
+        { player_number: 2, prisoner_count: 0, passed: true }
+      ],
+      previous_state: null
+    }
+  },
+  gameStateScorable: {
+    klass: GameState,
+    args: {
+      current_player_number: 2,
+      points: [
+        { id: 0, x: 0, y: 0, stone: null, territory_id: 1 },
+        { id: 1, x: 1, y: 0, stone: null, territory_id: 1 },
+        { id: 2, x: 2, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+        { id: 3, x: 3, y: 0, stone: null, territory_id: 2 },
+        { id: 4, x: 4, y: 0, stone: null, territory_id: 2 },
+
+        { id: 5, x: 0, y: 1, stone: null, territory_id: 1 },
+        { id: 6, x: 1, y: 1, stone: { id: 2, player_number: 1, chain_id: 1 } },
+        { id: 7, x: 2, y: 1, stone: { id: 3, player_number: 1, chain_id: 1 } },
+        { id: 8, x: 3, y: 1, stone: null, territory_id: 2 },
+        { id: 9, x: 4, y: 1, stone: null, territory_id: 2 },
+
+        { id: 10, x: 0, y: 2, stone: { id: 4, player_number: 1, chain_id: 1 } },
+        { id: 11, x: 1, y: 2, stone: { id: 5, player_number: 1, chain_id: 1 } },
+        { id: 12, x: 2, y: 2, stone: null, territory_id: 3 },
+        { id: 13, x: 3, y: 2, stone: { id: 6, player_number: 2, chain_id: 2 } },
+        { id: 14, x: 4, y: 2, stone: { id: 7, player_number: 2, chain_id: 2 } },
+
+        { id: 15, x: 0, y: 3, stone: null, territory_id: 4 },
+        { id: 16, x: 1, y: 3, stone: null, territory_id: 4 },
+        { id: 17, x: 2, y: 3, stone: { id: 8, player_number: 2, chain_id: 2 } },
+        { id: 18, x: 3, y: 3, stone: { id: 9, player_number: 2, chain_id: 2 } },
+        { id: 19, x: 4, y: 3, stone: null, territory_id: 5 },
+
+        { id: 20, x: 0, y: 4, stone: null, territory_id: 4 },
+        { id: 21, x: 1, y: 4, stone: null, territory_id: 4 },
+        { id: 22, x: 2, y: 4, stone: { id: 10, player_number: 2, chain_id: 2 } },
+        { id: 23, x: 3, y: 4, stone: null, territory_id: 5 },
+        { id: 24, x: 4, y: 4, stone: null, territory_id: 5 },
+      ],
+      previous_state: null,
+      player_stats: [
+        { player_number: 1, passed: true, prisoner_count: 4 },
+        { player_number: 2, passed: true, prisoner_count: 2 }
       ]
     }
   },
