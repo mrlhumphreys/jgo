@@ -1,5 +1,4 @@
-import uniq from '../src/uniq'
-import exists from '../src/exists'
+import { exists, uniq } from '../src/utils'
 import PointSet from '../src/point_set'
 import Point from '../src/point'
 import Stone from '../src/stone'

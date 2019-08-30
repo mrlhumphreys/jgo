@@ -1,7 +1,7 @@
+import { uniq } from '../src/utils'
 import GameState from '../src/game_state'
 import PointSet from '../src/point_set'
 import Stone from '../src/stone'
-import uniq from '../src/uniq'
 import fixtures from './fixtures'
 
 describe('GameState', () => {

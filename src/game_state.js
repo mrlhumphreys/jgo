@@ -1,6 +1,4 @@
-import exists from './exists'
-import sum from './sum'
-import maxBy from './max_by'
+import { exists, maxBy, sum } from './utils'
 import PointSet from './point_set'
 import PlayerStat from './player_stat'
 

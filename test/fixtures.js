@@ -1,4 +1,4 @@
-import exists from '../src/exists'
+import { exists } from '../src/utils'
 import Match from '../src/match'
 import GameState from '../src/game_state'
 import PointSet from '../src/point_set'
