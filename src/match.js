@@ -1,4 +1,5 @@
 import { buildPlayers, buildLastAction, buildNotification, winner, asJson } from '@mrlhumphreys/jboardgame'
+import { exists } from './utils'
 import GameState from './game_state'
 
 class Match {
@@ -12,6 +13,60 @@ class Match {
 
   get asJson() {
     return asJson(this);
+  }
+
+  get winner() {
+    return winner(this);
+  }
+
+  touchPoint(pointId, playerNumber) {
+    this._clearLastAction();
+
+    if (exists(this.winner)) {
+      this._notify('Game is over.');
+    } else {
+      let result = this.gameState.move(playerNumber, pointId);
+      if (result) {
+        this._addMoveToLastAction(pointId);
+        this._notify(buildNotification(this));
+      } else {
+        let error = this.gameState.errors[0];
+        this._notify(error.message);
+      }
+    }
+  }
+
+  touchPass(playerNumber) {
+    this._clearLastAction();
+
+    if (exists(this.winner)) {
+      this._notify('Game is over.');
+    } else {
+      let result = this.gameState.pass(playerNumber);
+      if (result) {
+        this._addPassToLastAction();
+        this._notify(buildNotification(this));
+      } else {
+        let error = this.gameState.errors[0];
+        this._notify(error.message);
+      }
+    }
+  }
+
+  _clearLastAction() {
+    this.lastAction = null;
+  }
+
+  _notify(message) {
+    this.notification = message;
+  }
+
+  _addMoveToLastAction(pointId) {
+    this.lastAction = { kind: 'move', data: { pointId: pointId } };
+  }
+
+  _addPassToLastAction() {
+    this.lastAction = { kind: 'pass', data: { } };
   }
 }
 

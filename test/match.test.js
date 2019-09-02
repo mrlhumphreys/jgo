@@ -1,5 +1,6 @@
 import Match from '../src/match'
 import GameState from '../src/game_state'
+import fixtures from './fixtures'
 
 describe('Match', () => {
   describe('initialize', () => {
@@ -75,5 +76,97 @@ describe('Match', () => {
 
       expect(result).toEqual(expected);
     });
+  });
+
+  describe('winner', () => {
+    describe('with a completed game', () => {
+      it('returns the player with the highest score', () => {
+        let match = fixtures('matchComplete');
+        expect(match.winner).toEqual(1);
+      });
+    });
+
+    describe('with a not yet scorable game', () => {
+      it('returns null', () => {
+        let match = fixtures('match');
+        expect(match.winner).toBe(null);
+      });
+    });
+  });
+
+  describe('touchPoint', () => {
+    describe('with a completed game', () => {
+      it('notifies that the game is over', () => {
+        let match = fixtures('matchComplete');
+        let pointId = 1;
+        let playerNumber = 1;
+        match.touchPoint(pointId, playerNumber);
+        expect(match.notification).toEqual('Game is over.');
+      });
+    });
+
+    describe('with a valid move', () => {
+      it('adds move to last action', () => {
+        let match = fixtures('match');
+        let pointId = 1;
+        let playerNumber = 1;
+        match.touchPoint(pointId, playerNumber);
+        expect(match.lastAction).toEqual({ kind: 'move', data: { pointId: pointId }});
+      });
+
+      it('notifies that it is the next players turn', () => {
+        let match = fixtures('match');
+        let pointId = 1;
+        let playerNumber = 1;
+        match.touchPoint(pointId, playerNumber);
+        expect(match.notification).toEqual('bbb to move');
+      });
+    });
+
+    describe('with an invalid move', () => {
+      it('notifies that there is an error', () => {
+        let match = fixtures('match');
+        let pointId = -1;
+        let playerNumber = 1;
+        match.touchPoint(pointId, playerNumber);
+        expect(match.notification).toEqual("Can't find point with that id");
+      });
+    });
+  });
+
+  describe('touchPass', () => {
+    describe('with a completed game', () => {
+      it('it notifies that the game is over', () => {
+        let match = fixtures('matchComplete');
+        let playerNumber = 1;
+        match.touchPass(playerNumber);
+        expect(match.notification).toEqual('Game is over.');
+      });
+    });
+
+    describe('with a valid pass', () => {
+      it('adds pass to last action', () => {
+        let match = fixtures('match');
+        let playerNumber = 1;
+        match.touchPass(playerNumber);
+        expect(match.lastAction).toEqual({ kind: 'pass', data: {} });
+      });
+
+      it('notifies that it is the next players turn', () => {
+        let match = fixtures('match');
+        let playerNumber = 1;
+        match.touchPass(playerNumber);
+        expect(match.notification).toEqual('bbb to move');
+      });
+    });
+
+    describe('with an invalid pass', () => {
+      it('notifies that there is an error', () => {
+        let match = fixtures('match');
+        let playerNumber = 2;
+        match.touchPass(playerNumber);
+        expect(match.notification).toEqual("It is not the player's turn yet.");
+      });
+    }); 
   });
 });

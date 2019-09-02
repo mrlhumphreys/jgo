@@ -5,6 +5,88 @@ import PointSet from '../src/point_set'
 import Point from '../src/point'
 
 const fixtureDefinitions = {
+  match: {
+    klass: Match,
+    args: {
+      id: 1,
+      game_state: {
+        current_player_number: 1,
+        points: [
+          { id: 0, x: 0, y: 0, stone: null },
+          { id: 1, x: 1, y: 0, stone: null },
+          { id: 2, x: 2, y: 0, stone: null },
+          { id: 3, x: 0, y: 1, stone: null },
+          { id: 4, x: 1, y: 1, stone: null },
+          { id: 5, x: 2, y: 1, stone: null },
+          { id: 6, x: 0, y: 2, stone: null },
+          { id: 7, x: 1, y: 2, stone: { id: 2, player_number: 2, chain_id: 2 } },
+          { id: 8, x: 1, y: 3, stone: { id: 1, player_number: 1, chain_id: 1 } }
+        ],
+        player_stats: [
+          { player_number: 1, passed: false, prisoner_count: 0 },
+          { player_number: 2, passed: false, prisoner_count: 1 },
+        ],
+        previous_state: null
+      },
+      players: [
+        { player_number: 1, name: 'aaa', resigned: false },
+        { player_number: 2, name: 'bbb', resigned: false }
+      ],
+      lastAction: null,
+      notification: null
+    }
+  },
+  matchComplete: {
+    klass: Match,
+    args: {
+      id: 1,
+      game_state: {
+        current_player_number: 2,
+        points: [
+          { id: 0, x: 0, y: 0, stone: null, territory_id: 1 },
+          { id: 1, x: 1, y: 0, stone: null, territory_id: 1 },
+          { id: 2, x: 2, y: 0, stone: { id: 1, player_number: 1, chain_id: 1 } },
+          { id: 3, x: 3, y: 0, stone: null, territory_id: 2 },
+          { id: 4, x: 4, y: 0, stone: null, territory_id: 2 },
+
+          { id: 5, x: 0, y: 1, stone: null, territory_id: 1 },
+          { id: 6, x: 1, y: 1, stone: { id: 2, player_number: 1, chain_id: 1 } },
+          { id: 7, x: 2, y: 1, stone: { id: 3, player_number: 1, chain_id: 1 } },
+          { id: 8, x: 3, y: 1, stone: null, territory_id: 2 },
+          { id: 9, x: 4, y: 1, stone: null, territory_id: 2 },
+
+          { id: 10, x: 0, y: 2, stone: { id: 4, player_number: 1, chain_id: 1 } },
+          { id: 11, x: 1, y: 2, stone: { id: 5, player_number: 1, chain_id: 1 } },
+          { id: 12, x: 2, y: 2, stone: null, territory_id: 3 },
+          { id: 13, x: 3, y: 2, stone: { id: 6, player_number: 2, chain_id: 2 } },
+          { id: 14, x: 4, y: 2, stone: { id: 7, player_number: 2, chain_id: 2 } },
+
+          { id: 15, x: 0, y: 3, stone: null, territory_id: 4 },
+          { id: 16, x: 1, y: 3, stone: null, territory_id: 4 },
+          { id: 17, x: 2, y: 3, stone: { id: 8, player_number: 2, chain_id: 2 } },
+          { id: 18, x: 3, y: 3, stone: { id: 9, player_number: 2, chain_id: 2 } },
+          { id: 19, x: 4, y: 3, stone: null, territory_id: 5 },
+
+          { id: 20, x: 0, y: 4, stone: null, territory_id: 4 },
+          { id: 21, x: 1, y: 4, stone: null, territory_id: 4 },
+          { id: 22, x: 2, y: 4, stone: { id: 10, player_number: 2, chain_id: 2 } },
+          { id: 23, x: 3, y: 4, stone: null, territory_id: 5 },
+          { id: 24, x: 4, y: 4, stone: null, territory_id: 5 },
+        ],
+        previous_state: null,
+        player_stats: [
+          { player_number: 1, passed: true, prisoner_count: 4 },
+          { player_number: 2, passed: true, prisoner_count: 2 }
+        ]
+      },
+      players: [
+        { player_number: 1, name: 'aaa', resigned: false },
+        { player_number: 2, name: 'bbb', resigned: false }
+      ],
+      lastAction: null,
+      notification: null
+    }
+  },
   gameState: {
     klass: GameState,
     args: {
