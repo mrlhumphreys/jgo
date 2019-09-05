@@ -1,5 +1,5 @@
-import { exists } from '../src/utils'
-import Stone from '../src/stone'
+import { exists } from './utils'
+import Stone from './stone'
 
 class Point {
   constructor(args) {
