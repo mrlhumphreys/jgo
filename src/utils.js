@@ -46,6 +46,9 @@ export const reject = function(array, callback) {
 };
 
 export const sum = function(array, callback) {
+  if (array.length === 0) {
+    return 0;
+  }
   return array.map(callback).reduce(function(memo, n) {
     if (memo === undefined) { 
       memo = 0; 

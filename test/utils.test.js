@@ -128,6 +128,13 @@ describe('sum', () => {
     let expected = 6;
     expect(result).toBe(expected);
   });
+
+  it('must return 0 if array is empty', () => {
+    let array = [];
+    let result = sum(array, function(n) { return n.a; });
+    let expected = 0;
+    expect(result).toBe(expected);
+  });
 });
 
 describe('uniq', () => {
