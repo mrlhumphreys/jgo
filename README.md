@@ -32,12 +32,19 @@ Initialize a new match object:
 Serialize match object:
 
 ```javascript
-  match.asJson
+  match.asJson;
 ```
 
 Make a move
 
 ```javascript
+  match.touchPoint(19, 1); // place a stone at point 19 for player 1
+```
+
+Pass the turn
+
+```javascript
+  match.touchPass(1); // pass the turn for player 1
 ```
 
 Get winner
