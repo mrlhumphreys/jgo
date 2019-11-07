@@ -25,42 +25,21 @@ class GameState {
   }
 
   move(playerNumber, pointId) {
-    this.errors = [];
-
     let point = this.points.findById(pointId); 
 
-    if (this.currentPlayerNumber !== playerNumber) {
-      this.errors.push({name: 'NotPlayersTurn', message: "It is not the player's turn yet."});
-    } else if (!exists(point)) {
-      this.errors.push({name: 'PointNotFoundError', message: "Can't find point with that id"});
-    } else if (point.occupied) {
-      this.errors.push({name: 'PointNotEmptyError', message: "Point is not empty"});
-    } else if (this.points.libertiesFor(point) === 0 && this.points.deprivesLiberties(point, playerNumber) && !this.points.deprivesOpponentsLiberties(point, playerNumber)) {
-      this.errors.push({name: 'NoLibertiesError', message: "Point has no liberties"});
-    } else {
-      let dupped = this.points.dup;
-      dupped.performMove(point, playerNumber);
+    this.playerStats.filter((ps) => {
+      return ps.playerNumber === this._nextPlayerNumber; 
+    })[0].markAsContinuing()
 
-      if (dupped.minify === this.previousState) {
-        this.errors.push({name: 'KoRuleViolationError', message: "Move puts board in previous state"});
-      } else {
-        this.playerStats.filter((ps) => {
-          return ps.playerNumber === this._nextPlayerNumber; 
-        })[0].markAsContinuing()
+    this.previousState = this.points.minify
 
-        this.previousState = this.points.minify
+    let stoneCount = this.points.performMove(point, playerNumber);
 
-        let stoneCount = this.points.performMove(point, playerNumber);
+    this.playerStats.filter((ps) => {
+      return ps.playerNumber === playerNumber; 
+    })[0].addToPrisonerCount(stoneCount);
 
-        this.playerStats.filter((ps) => {
-          return ps.playerNumber === playerNumber; 
-        })[0].addToPrisonerCount(stoneCount);
-
-        this._passTurn();
-      }
-    }
-
-    return this.errors.length === 0;
+    this._passTurn();
   }
 
   pass(playerNumber) {

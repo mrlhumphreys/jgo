@@ -129,7 +129,7 @@ describe('Match', () => {
         let pointId = -1;
         let playerNumber = 1;
         match.touchPoint(pointId, playerNumber);
-        expect(match.notification).toEqual("Can't find point with that id");
+        expect(match.notification).toEqual("Point does not exist.");
       });
     });
   });

@@ -2,3 +2,4 @@
 /lib
 *.swp
 *.log
+yarn.lock

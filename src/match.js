@@ -1,6 +1,7 @@
 import { buildPlayers, buildLastAction, buildNotification, winner, asJson } from '@mrlhumphreys/jboardgame'
 import { exists } from './utils'
 import GameState from './game_state'
+import Move from './move'
 
 class Match {
   constructor(args) {
@@ -22,17 +23,22 @@ class Match {
   touchPoint(pointId, playerNumber) {
     this._clearLastAction();
 
-    if (exists(this.winner)) {
-      this._notify('Game is over.');
-    } else {
-      let result = this.gameState.move(playerNumber, pointId);
-      if (result) {
+    let move = new Move({
+      proposedPointId: pointId,
+      playerNumber: playerNumber,
+      match: this
+    });
+
+    let result = move.result;
+
+    switch (result.name) {
+      case 'MoveValid':
+        this.gameState.move(playerNumber, pointId);
         this._addMoveToLastAction(pointId);
         this._notify(buildNotification(this));
-      } else {
-        let error = this.gameState.errors[0];
-        this._notify(error.message);
-      }
+        break;
+      default:
+        this._notify(result.message);
     }
   }
 
