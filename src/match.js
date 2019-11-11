@@ -2,6 +2,7 @@ import { buildPlayers, buildLastAction, buildNotification, winner, asJson } from
 import { exists } from './utils'
 import GameState from './game_state'
 import Move from './move'
+import Pass from './pass'
 
 class Match {
   constructor(args) {
@@ -45,17 +46,21 @@ class Match {
   touchPass(playerNumber) {
     this._clearLastAction();
 
-    if (exists(this.winner)) {
-      this._notify('Game is over.');
-    } else {
-      let result = this.gameState.pass(playerNumber);
-      if (result) {
+    let pass = new Pass({
+      playerNumber: playerNumber,
+      match: this
+    });
+
+    let result = pass.result;
+
+    switch (result.name) {
+      case 'PassValid':
+        this.gameState.pass(playerNumber);
         this._addPassToLastAction();
         this._notify(buildNotification(this));
-      } else {
-        let error = this.gameState.errors[0];
-        this._notify(error.message);
-      }
+        break;
+      default:
+        this._notify(result.message);
     }
   }
 

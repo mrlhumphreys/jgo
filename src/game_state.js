@@ -43,25 +43,19 @@ class GameState {
   }
 
   pass(playerNumber) {
-    if (this.currentPlayerNumber !== playerNumber) {
-      this.errors.push({name: 'NotPlayersTurn', message: "It is not the player's turn yet."});
+    this.playerStats.filter(function(ps) {
+      return ps.playerNumber === playerNumber;
+    })[0].markAsPassed();
+
+    let nextPlayerPassed = this.playerStats.filter((ps) => {
+      return ps.playerNumber == this._nextPlayerNumber;
+    })[0].passed;
+
+    if (nextPlayerPassed) {
+      this.points.markTerritories();
     } else {
-      this.playerStats.filter(function(ps) {
-        return ps.playerNumber === playerNumber;
-      })[0].markAsPassed();
-
-      let nextPlayerPassed = this.playerStats.filter((ps) => {
-        return ps.playerNumber == this._nextPlayerNumber;
-      })[0].passed;
-
-      if (nextPlayerPassed) {
-        this.points.markTerritories();
-      } else {
-        this._passTurn();
-      }
+      this._passTurn();
     }
-
-    return this.errors.length === 0;
   }
 
   get score() {

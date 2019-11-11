@@ -165,7 +165,7 @@ describe('Match', () => {
         let match = fixtures('match');
         let playerNumber = 2;
         match.touchPass(playerNumber);
-        expect(match.notification).toEqual("It is not the player's turn yet.");
+        expect(match.notification).toEqual("It is not your turn.");
       });
     }); 
   });

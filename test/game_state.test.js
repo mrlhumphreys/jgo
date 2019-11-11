@@ -196,64 +196,6 @@ describe('GameState', () => {
 
         expect(error).toBe(undefined);
       });
-
-      it('returns true', () => {
-        let gameState = fixtures('gameState');
-        let playerNumber = 1;
-        let otherPlayerNumber = 2;
-        
-        let result = gameState.pass(playerNumber);
-
-        expect(result).toBe(true);
-      });
-    });
-
-    describe('when not players turn', () => {
-      it('does not record that the player has passed', () => {
-        let gameState = fixtures('gameState');
-        let playerNumber = 1;
-        let otherPlayerNumber = 2;
-        
-        gameState.pass(otherPlayerNumber);
-
-        let playerStat = gameState.playerStats.filter(function(ps) {
-          return ps.playerNumber === otherPlayerNumber;
-        })[0];
-
-        expect(playerStat.passed).toBe(false);
-      });
-
-      it('does not pass the turn', () => {
-        let gameState = fixtures('gameState');
-        let playerNumber = 1;
-        let otherPlayerNumber = 2;
-        
-        gameState.pass(otherPlayerNumber);
-
-        expect(gameState.currentPlayerNumber).toEqual(playerNumber);
-      });
-
-      it('adds error', () => {
-        let gameState = fixtures('gameState');
-        let playerNumber = 1;
-        let otherPlayerNumber = 2;
-        
-        gameState.pass(otherPlayerNumber);
-
-        let error = gameState.errors[0];
-
-        expect(error.name).toEqual('NotPlayersTurn');
-      });
-
-      it('returns false', () => {
-        let gameState = fixtures('gameState');
-        let playerNumber = 1;
-        let otherPlayerNumber = 2;
-        
-        let result = gameState.pass(otherPlayerNumber);
-
-        expect(result).toBe(false);
-      });
     });
 
     describe('when the other player has passed already', () => {
