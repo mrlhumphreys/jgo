@@ -184,18 +184,6 @@ describe('GameState', () => {
 
         expect(gameState.currentPlayerNumber).toEqual(otherPlayerNumber);
       });
-
-      it('does not add error', () => {
-        let gameState = fixtures('gameState');
-        let playerNumber = 1;
-        let otherPlayerNumber = 2;
-        
-        gameState.pass(playerNumber);
-
-        let error = gameState.errors[0];
-
-        expect(error).toBe(undefined);
-      });
     });
 
     describe('when the other player has passed already', () => {

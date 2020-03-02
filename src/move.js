@@ -1,12 +1,30 @@
 import { exists } from './utils'
 
+/** A move action */
 class Move {
+  /** 
+   * Create a Move
+   * @param {Object} args - The properties of the move.
+   * @param {number} args.proposedPointId - The id of the point involved this action.
+   * @param {number} args.playerNumber - The number of the player performing this action.
+   * @param {Match} args.match - The match.
+   */
   constructor(args) {
+    /** @member {number} */
     this.proposedPointId = args.proposedPointId;
+
+    /** @member {number} */
     this.playerNumber = args.playerNumber;
+
+    /** @member {Match} */
     this.match = args.match;
   }
 
+  /**
+   * The result of performing this move.
+   * Returns an object with name and message.
+   * @return {Object}
+   */
   get result() {
     if (exists(this.match.winner)) {
       return { name: 'GameOver', message: 'Game is over.' };
